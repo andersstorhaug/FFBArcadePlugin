@@ -13,6 +13,7 @@ along with FFB Arcade Plugin.If not, see < https://www.gnu.org/licenses/>.
 */
 
 #include <string>
+#include <stdint.h>
 #include "FnF.h"
 
 static bool init;

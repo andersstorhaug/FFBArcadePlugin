@@ -2,6 +2,12 @@
 
 #include "dinput.h"
 
+#ifdef UNICODE
+#define LPDIENUMEFFECTSCALLBACK  LPDIENUMEFFECTSCALLBACKW
+#else
+#define LPDIENUMEFFECTSCALLBACK  LPDIENUMEFFECTSCALLBACKA
+#endif
+
 struct DirectInputDeviceWrapper : public IDirectInputDevice8
 {
 private:

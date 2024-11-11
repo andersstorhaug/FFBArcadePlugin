@@ -12,6 +12,7 @@ along with FFB Arcade Plugin.If not, see < https://www.gnu.org/licenses/>.
 */
 
 #include <string>
+#include <cstring>
 #include "SWDC2018.h"
 
 extern int EnableDamper;

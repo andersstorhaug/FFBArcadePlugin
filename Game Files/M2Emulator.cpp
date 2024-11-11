@@ -214,19 +214,19 @@ char* romnameM2;
 
 static int ThreadLoop()
 {
-	if (hWnd1 > NULL || hWnd14 > NULL || hWnd15 > NULL)
+	if (hWnd1 != NULL || hWnd14 != NULL || hWnd15 != NULL)
 	{
 		if (InputDeviceWheelEnable)
 			M2EmulatorSegaRallyInputsEnabled(0);
 	}
 	
-	if (hWnd2 > NULL || hWnd7 > NULL || hWnd8 > NULL || hWnd9 > NULL || hWnd10 > NULL || hWnd11 > NULL || hWnd12 > NULL || hWnd13 > NULL)
+	if (hWnd2 != NULL || hWnd7 != NULL || hWnd8 != NULL || hWnd9 != NULL || hWnd10 != NULL || hWnd11 != NULL || hWnd12 != NULL || hWnd13 != NULL)
 	{
 		if (InputDeviceWheelEnable)
 			M2EmulatorDaytonaUSAInputsEnabled(0);
 	}
 
-	if (hWnd3 > NULL || hWnd4 > NULL || hWnd5 > NULL || hWnd6 > NULL || hWnd16 > NULL || hWnd17 > NULL || hWnd18 > NULL || hWnd19 > NULL || hWnd20 > NULL)
+	if (hWnd3 != NULL || hWnd4 != NULL || hWnd5 != NULL || hWnd6 != NULL || hWnd16 != NULL || hWnd17 != NULL || hWnd18 != NULL || hWnd19 != NULL || hWnd20 != NULL)
 	{
 		if (InputDeviceWheelEnable)
 			M2EmulatorIndy500InputsEnabled(0);
@@ -268,8 +268,8 @@ void M2Emulator::FFBLoop(EffectConstants * constants, Helpers * helpers, EffectT
 
 	romnameM2 = new char[256];
 
-	if (hWnd1 > NULL || hWnd2 > NULL || hWnd3 > NULL || hWnd4 > NULL || hWnd5 > NULL || hWnd6 > NULL || hWnd7 > NULL || hWnd8 > NULL || hWnd9 > NULL || hWnd10 > NULL ||
-		hWnd11 > NULL || hWnd12 > NULL || hWnd13 > NULL || hWnd14 > NULL || hWnd15 > NULL || hWnd16 > NULL || hWnd17 > NULL || hWnd18 > NULL || hWnd19 > NULL || hWnd20 > NULL)
+	if (hWnd1 != NULL || hWnd2 != NULL || hWnd3 != NULL || hWnd4 != NULL || hWnd5 != NULL || hWnd6 != NULL || hWnd7 != NULL || hWnd8 != NULL || hWnd9 != NULL || hWnd10 != NULL ||
+		hWnd11 != NULL || hWnd12 != NULL || hWnd13 != NULL || hWnd14 != NULL || hWnd15 != NULL || hWnd16 != NULL || hWnd17 != NULL || hWnd18 != NULL || hWnd19 != NULL || hWnd20 != NULL)
 	{
 		if (InputDeviceWheelEnable)
 		{
@@ -300,102 +300,102 @@ void M2Emulator::FFBLoop(EffectConstants * constants, Helpers * helpers, EffectT
 		}
 	}
 
-	if (hWnd1 > NULL)
+	if (hWnd1 != NULL)
 	{
 		sprintf(romnameM2, "%s", "Sega Rally Championship");
 		hWndM2 = hWnd1;
 	}
-	else if(hWnd2 > NULL)
+	else if(hWnd2 != NULL)
 	{
 		sprintf(romnameM2, "%s", "Daytona USA");
 		hWndM2 = hWnd2;
 	}
-	else if (hWnd3 > NULL)
+	else if (hWnd3 != NULL)
 	{
 		sprintf(romnameM2, "%s", "Indianapolis 500 (Rev A, Deluxe)");
 		hWndM2 = hWnd3;
 	}
-	else if (hWnd4 > NULL)
+	else if (hWnd4 != NULL)
 	{
 		sprintf(romnameM2, "%s", "Sega Touring Car Championship (Rev A)");
 		hWndM2 = hWnd4;
 	}
-	else if (hWnd5 > NULL)
+	else if (hWnd5 != NULL)
 	{
 		sprintf(romnameM2, "%s", "Over Rev");
 		hWndM2 = hWnd5;
 	}
-	else if (hWnd6 > NULL)
+	else if (hWnd6 != NULL)
 	{
 		sprintf(romnameM2, "%s", "Super GT 24h");
 		hWndM2 = hWnd6;
 	}
-	else if (hWnd7 > NULL)
+	else if (hWnd7 != NULL)
 	{
 		sprintf(romnameM2, "%s", "Daytona USA '93 Edition");
 		hWndM2 = hWnd7;
 	}
-	else if (hWnd8 > NULL)
+	else if (hWnd8 != NULL)
 	{
 		sprintf(romnameM2, "%s", "Daytona USA (Saturn Ads)");
 		hWndM2 = hWnd8;
 	}
-	else if (hWnd9 > NULL)
+	else if (hWnd9 != NULL)
 	{
 		sprintf(romnameM2, "%s", "Daytona USA Special Edition");
 		hWndM2 = hWnd9;
 	}
-	else if (hWnd10 > NULL)
+	else if (hWnd10 != NULL)
 	{
 		sprintf(romnameM2, "%s", "Daytona USA Turbo");
 		hWndM2 = hWnd10;
 	}
-	else if (hWnd11 > NULL)
+	else if (hWnd11 != NULL)
 	{
 		sprintf(romnameM2, "%s", "Daytona USA Turbo (Rev A)");
 		hWndM2 = hWnd11;
 	}
-	else if (hWnd12 > NULL)
+	else if (hWnd12 != NULL)
 	{
 		sprintf(romnameM2, "%s", "Daytona USA: GTX 2004");
 		hWndM2 = hWnd12;
 	}
-	else if (hWnd13 > NULL)
+	else if (hWnd13 != NULL)
 	{
 		sprintf(romnameM2, "%s", "Daytona USA: To The Maxx");
 		hWndM2 = hWnd13;
 	}
-	else if (hWnd14 > NULL)
+	else if (hWnd14 != NULL)
 	{
 		sprintf(romnameM2, "%s", "Sega Rally Championship (Rev B)");
 		hWndM2 = hWnd14;
 	}
-	else if (hWnd15 > NULL)
+	else if (hWnd15 != NULL)
 	{
 		sprintf(romnameM2, "%s", "Sega Rally Pro Drivin'");
 		hWndM2 = hWnd15;
 	}
-	else if (hWnd16 > NULL)
+	else if (hWnd16 != NULL)
 	{
 		sprintf(romnameM2, "%s", "Indianapolis 500 (Rev A, Twin, Newer rev)");
 		hWndM2 = hWnd16;
 	}
-	else if (hWnd17 > NULL)
+	else if (hWnd17 != NULL)
 	{
 		sprintf(romnameM2, "%s", "Indianapolis 500 (Rev A, Twin, Older rev)");
 		hWndM2 = hWnd17;
 	}
-	else if (hWnd18 > NULL)
+	else if (hWnd18 != NULL)
 	{
 		sprintf(romnameM2, "%s", "Sega Touring Car Championship");
 		hWndM2 = hWnd18;
 	}
-	else if (hWnd19 > NULL)
+	else if (hWnd19 != NULL)
 	{
 		sprintf(romnameM2, "%s", "Sega Touring Car Championship (Rev B)");
 		hWndM2 = hWnd19;
 	}
-	else if (hWnd20 > NULL)
+	else if (hWnd20 != NULL)
 	{
 		sprintf(romnameM2, "%s", "Over Rev (Model 2B)");
 		hWndM2 = hWnd20;
@@ -443,7 +443,7 @@ void M2Emulator::FFBLoop(EffectConstants * constants, Helpers * helpers, EffectT
 		}
 	}
 
-	if ((hWnd2 > NULL) || (hWnd3 > NULL) || (hWnd4 > NULL) || (hWnd5 > NULL) || (hWnd6 > NULL) || (hWnd7 > NULL) || (hWnd8 > NULL) || (hWnd9 > NULL) || (hWnd10 > NULL) || (hWnd11 > NULL) || (hWnd12 > NULL) || (hWnd13 > NULL) ||(hWnd16 > NULL) || (hWnd17 > NULL) || (hWnd18 > NULL) || (hWnd19 > NULL) || (hWnd20 > NULL))
+	if ((hWnd2 != NULL) || (hWnd3 != NULL) || (hWnd4 != NULL) || (hWnd5 != NULL) || (hWnd6 != NULL) || (hWnd7 != NULL) || (hWnd8 != NULL) || (hWnd9 != NULL) || (hWnd10 != NULL) || (hWnd11 != NULL) || (hWnd12 != NULL) || (hWnd13 != NULL) ||(hWnd16 != NULL) || (hWnd17 != NULL) || (hWnd18 != NULL) || (hWnd19 != NULL) || (hWnd20 != NULL))
 	{
 		std::string ffs = std::to_string(ff);
 		helpers->log((char*)ffs.c_str());
@@ -500,7 +500,7 @@ void M2Emulator::FFBLoop(EffectConstants * constants, Helpers * helpers, EffectT
 		}
 	}
 
-	if ((hWnd1 > NULL) || (hWnd14 > NULL) || (hWnd15 > NULL))
+	if ((hWnd1 != NULL) || (hWnd14 != NULL) || (hWnd15 != NULL))
 	{
 		if (!CustomStrengthInit)
 		{
@@ -549,7 +549,7 @@ void M2Emulator::FFBLoop(EffectConstants * constants, Helpers * helpers, EffectT
 		OldFFB = ff1;
 	}
 
-	if ((hWnd2 > NULL) || (hWnd7 > NULL) || (hWnd8 > NULL) || (hWnd9 > NULL) || (hWnd10 > NULL) || (hWnd11 > NULL) || (hWnd12 > NULL) || (hWnd13 > NULL))
+	if ((hWnd2 != NULL) || (hWnd7 != NULL) || (hWnd8 != NULL) || (hWnd9 != NULL) || (hWnd10 != NULL) || (hWnd11 != NULL) || (hWnd12 != NULL) || (hWnd13 != NULL))
 	{
 		if (!CustomStrengthInit)
 		{
@@ -1136,7 +1136,7 @@ void M2Emulator::FFBLoop(EffectConstants * constants, Helpers * helpers, EffectT
 		ff = helpers->ReadByte(0x0057285B, /* isRelativeOffset*/ false); //DaytonaUSA		
 	}
 
-	if ((hWnd3 > NULL) || (hWnd16 > NULL) || (hWnd17 > NULL))
+	if ((hWnd3 != NULL) || (hWnd16 != NULL) || (hWnd17 != NULL))
 	{
 		if (!CustomStrengthInit)
 		{
@@ -1158,7 +1158,7 @@ void M2Emulator::FFBLoop(EffectConstants * constants, Helpers * helpers, EffectT
 		ff = helpers->ReadByte(0x17285B, /* isRelativeOffset*/ true); //Indy500
 	}	
 
-	if ((hWnd4 > NULL) || (hWnd18 > NULL) || (hWnd19 > NULL))
+	if ((hWnd4 != NULL) || (hWnd18 != NULL) || (hWnd19 != NULL))
 	{
 		if (!CustomStrengthInit)
 		{
@@ -1180,7 +1180,7 @@ void M2Emulator::FFBLoop(EffectConstants * constants, Helpers * helpers, EffectT
 		ff = helpers->ReadByte(0x17285B, /* isRelativeOffset*/ true); //Sega Touring Car Championship
 	}		
 
-	if ((hWnd5 > NULL) || (hWnd20 > NULL))
+	if ((hWnd5 != NULL) || (hWnd20 != NULL))
 	{
 		if (!CustomStrengthInit)
 		{
@@ -1202,7 +1202,7 @@ void M2Emulator::FFBLoop(EffectConstants * constants, Helpers * helpers, EffectT
 		ff = helpers->ReadByte(0x17285B, /* isRelativeOffset*/ true); //OverRev
 	}	
 
-	if (hWnd6 > NULL)
+	if (hWnd6 != NULL)
 	{
 		if (!CustomStrengthInit)
 		{

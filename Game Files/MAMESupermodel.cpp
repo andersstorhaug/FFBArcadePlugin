@@ -14,7 +14,6 @@ along with FFB Arcade Plugin.If not, see < https://www.gnu.org/licenses/>.
 #include "MAMESupermodel.h"
 #include <string>
 #include <tchar.h>
-#include <atlstr.h>
 #include "SDL.h"
 #include "../Common Files/SignatureScanning.h"
 
@@ -2023,8 +2022,7 @@ int __stdcall mame_updatestate(const char* id, int state)
 	wsprintf(buf, L"updatestate: id=%d (%S) state=%d\r\n", id, name, state);
 	AppendTextToEditCtrl(hEdit, buf);
 
-	CStringA stringName(name);
-	nameFFB = stringName;
+	nameFFB = (const char*)name;
 
 	newstateFFB = state;
 
@@ -2066,7 +2064,7 @@ int __stdcall mame_updatestate(const char* id, int state)
 		}
 	}
 
-	if (RomGameName && RunningFFB > 0)
+	if (RomGameName && RunningFFB != NULL)
 		FFBGameEffects(myconstants, myhelpers, mytriggers, state, name);
 	
 	return 1;
@@ -3553,9 +3551,9 @@ void MAMESupermodel::FFBLoop(EffectConstants* constants, Helpers* helpers, Effec
 		}
 	}
 
-	if (RomGameName && RunningFFB > 0)
+	if (RomGameName && RunningFFB != NULL)
 	{
-		if (RunningFFB > 0 && EnableDamper)
+		if (RunningFFB != NULL && EnableDamper)
 			triggers->Damper(DamperStrength / 100.0);
 
 		if (RunningFFB == LightGunActive) //LightGun Games

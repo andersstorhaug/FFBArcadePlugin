@@ -11,7 +11,7 @@ You should have received a copy of the GNU General Public License
 along with FFB Arcade Plugin.If not, see < https://www.gnu.org/licenses/>.
 */
 
-#include "WasteLandRacers2071.h"
+#include "WastelandRacers2071.h"
 #include <string>
 #include <sstream>
 #include "SDL.h"

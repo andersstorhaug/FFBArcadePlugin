@@ -14,7 +14,7 @@ along with FFB Arcade Plugin.If not, see < https://www.gnu.org/licenses/>.
 #include <string>
 #include "Showdown.h"
 #include "SDL.h"
-#include <Xinput.h>
+#include <xinput.h>
 
 static EffectTriggers* myTriggers;
 static EffectConstants* myConstants;

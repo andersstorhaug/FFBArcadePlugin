@@ -12,6 +12,7 @@ along with FFB Arcade Plugin.If not, see < https://www.gnu.org/licenses/>.
 */
 
 #include <string>
+#include <math.h>
 #include "SegaRacingClassic.h"
 
 extern int EnableDamper;

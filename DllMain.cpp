@@ -11,7 +11,8 @@ You should have received a copy of the GNU General Public License
 along with FFB Arcade Plugin.If not, see < https://www.gnu.org/licenses/>.
 */
 
-#include <Windows.h>
+#define NOMINMAX
+#include <windows.h>
 #include <math.h>
 #include <dinput.h>
 #include <stdio.h>
@@ -26,8 +27,8 @@ along with FFB Arcade Plugin.If not, see < https://www.gnu.org/licenses/>.
 #include "IDirectInputDevice.h"
 #include <d3d11.h>
 #include <sapi.h>
-#include <atlcomcli.h>
-#include <TlHelp32.h>
+#include <comdef.h>
+#include <tlhelp32.h>
 #include "Config/PersistentValues.h"
 
 // include all game header files here.
@@ -117,6 +118,8 @@ along with FFB Arcade Plugin.If not, see < https://www.gnu.org/licenses/>.
 // typedefs 
 typedef unsigned char U8;
 typedef unsigned int U32;
+
+_COM_SMARTPTR_TYPEDEF(ISpVoice, __uuidof(ISpVoice));
 
 // DINPUT8 FUNCTION DEFINITIONS
 typedef HRESULT(WINAPI* pfnDirectInputDirectInput8Create)(HINSTANCE hinst, DWORD dwVersion, REFIID riidltf, LPVOID* ppvOut, LPUNKNOWN punkOuter);
@@ -823,54 +826,56 @@ enum lib
 
 lib currentLibrary = lib::unknown;
 
-// DINPUT WRAPPER
-HRESULT WINAPI DirectInputDirectInputCreateA(HINSTANCE hinst, DWORD dwVersion, LPDIRECTINPUTA* ppDI, LPUNKNOWN punkOuter)
-{
-	HRESULT res = originalDirectInputDirectInputCreateA(hinst, dwVersion, ppDI, punkOuter);
-	return res;
-}
-HRESULT WINAPI DirectInputDirectInputCreateW(HINSTANCE hinst, DWORD dwVersion, LPDIRECTINPUTW* ppDI, LPUNKNOWN punkOuter)
-{
-	HRESULT res = originalDirectInputDirectInputCreateW(hinst, dwVersion, ppDI, punkOuter);
-	return res;
-}
-HRESULT WINAPI DirectInputDirectInputCreateEx(HINSTANCE hinst, DWORD dwVersion, REFIID riidltf, LPVOID* ppvOut, LPUNKNOWN punkOuter)
-{
-	HRESULT res = originalDirectInputDirectInputCreateEx(hinst, dwVersion, riidltf, ppvOut, punkOuter);
-	return res;
-}
-// DINPUT8 WRAPPER
-HRESULT WINAPI DirectInputDirectInput8Create(HINSTANCE hinst, DWORD dwVersion, REFIID riidltf, LPVOID* ppvOut, LPUNKNOWN punkOuter)
-{
-	LPVOID val;
-	HRESULT res = originalDirectInputDirectInput8Create(hinst, dwVersion, riidltf, &val, punkOuter);
-	*ppvOut = new DirectInputDeviceWrapper(val, (IID_IDirectInput8W == riidltf));
-	return res;
-}
+extern "C" {
+	// DINPUT WRAPPER
+	HRESULT WINAPI DirectInputDirectInputCreateA(HINSTANCE hinst, DWORD dwVersion, LPDIRECTINPUTA* ppDI, LPUNKNOWN punkOuter)
+	{
+		HRESULT res = originalDirectInputDirectInputCreateA(hinst, dwVersion, ppDI, punkOuter);
+		return res;
+	}
+	HRESULT WINAPI DirectInputDirectInputCreateW(HINSTANCE hinst, DWORD dwVersion, LPDIRECTINPUTW* ppDI, LPUNKNOWN punkOuter)
+	{
+		HRESULT res = originalDirectInputDirectInputCreateW(hinst, dwVersion, ppDI, punkOuter);
+		return res;
+	}
+	HRESULT WINAPI DirectInputDirectInputCreateEx(HINSTANCE hinst, DWORD dwVersion, REFIID riidltf, LPVOID* ppvOut, LPUNKNOWN punkOuter)
+	{
+		HRESULT res = originalDirectInputDirectInputCreateEx(hinst, dwVersion, riidltf, ppvOut, punkOuter);
+		return res;
+	}
+	// DINPUT8 WRAPPER
+	HRESULT WINAPI DirectInputDirectInput8Create(HINSTANCE hinst, DWORD dwVersion, REFIID riidltf, LPVOID* ppvOut, LPUNKNOWN punkOuter)
+	{
+		LPVOID val;
+		HRESULT res = originalDirectInputDirectInput8Create(hinst, dwVersion, riidltf, &val, punkOuter);
+		*ppvOut = new DirectInputDeviceWrapper(val, (IID_IDirectInput8W == riidltf));
+		return res;
+	}
 
-HRESULT WINAPI DirectInputDllRegisterServer(void)
-{
-	return originalDirectInputDllRegisterServer();
-}
+	HRESULT WINAPI DirectInputDllRegisterServer(void)
+	{
+		return originalDirectInputDllRegisterServer();
+	}
 
-HRESULT WINAPI DirectInputDllUnregisterServer(void)
-{
-	return originalDirectInputDllUnregisterServer();
-}
+	HRESULT WINAPI DirectInputDllUnregisterServer(void)
+	{
+		return originalDirectInputDllUnregisterServer();
+	}
 
-HRESULT WINAPI DirectInputDllCanUnloadNow(void)
-{
-	return originalDirectInputDllCanUnloadNow();
-}
+	HRESULT WINAPI DirectInputDllCanUnloadNow(void)
+	{
+		return originalDirectInputDllCanUnloadNow();
+	}
 
-HRESULT WINAPI DirectInputDllGetClassObject(REFCLSID rclsid, REFIID riid, LPVOID* ppv)
-{
-	return originalDirectInputDllGetClassObject(rclsid, riid, ppv);
-}
+	HRESULT WINAPI DirectInputDllGetClassObject(REFCLSID rclsid, REFIID riid, LPVOID* ppv)
+	{
+		return originalDirectInputDllGetClassObject(rclsid, riid, ppv);
+	}
 
-LPCDIDATAFORMAT WINAPI DirectInputGetdfDIJoystick()
-{
-	return originalGetdfDIJoystick();
+	LPCDIDATAFORMAT WINAPI DirectInputGetdfDIJoystick()
+	{
+		return originalGetdfDIJoystick();
+	}	
 }
 
 void MEMwrite(void* adr, void* ptr, int size)
@@ -994,7 +999,7 @@ static wchar_t FFBStrength2[256];
 
 SDL_Event e;
 HRESULT hr;
-CComPtr<ISpVoice> cpVoice;
+ISpVoicePtr cpVoice;
 
 const int TEST_GAME_CONST = -1;
 const int TEST_GAME_SINE = -2;
@@ -2117,12 +2122,12 @@ static int StrengthLoopWaitEvent()
 							if (configAlternativeMaxForceRight >= 0 && configAlternativeMaxForceRight < 100)
 							{
 								configAlternativeMaxForceRight += StepFFBStrength;
-								configAlternativeMaxForceRight = max(0, min(100, configAlternativeMaxForceRight));
+								configAlternativeMaxForceRight = std::max(0, std::min(100, configAlternativeMaxForceRight));
 							}
 							if (configAlternativeMaxForceLeft <= 0 && configAlternativeMaxForceLeft > -100)
 							{
 								configAlternativeMaxForceLeft -= StepFFBStrength;
-								configAlternativeMaxForceLeft = max(-100, min(0, configAlternativeMaxForceLeft));
+								configAlternativeMaxForceLeft = std::max(-100, std::min(0, configAlternativeMaxForceLeft));
 							}
 						}
 						else
@@ -2130,7 +2135,7 @@ static int StrengthLoopWaitEvent()
 							if (configMaxForce >= 0 && configMaxForce < 100)
 							{
 								configMaxForce += StepFFBStrength;
-								configMaxForce = max(0, min(100, configMaxForce));
+								configMaxForce = std::max(0, std::min(100, configMaxForce));
 							}
 						}
 						WritePersistentMaxForce();
@@ -2143,12 +2148,12 @@ static int StrengthLoopWaitEvent()
 							if (configAlternativeMaxForceRight > 0 && configAlternativeMaxForceRight <= 100)
 							{
 								configAlternativeMaxForceRight -= StepFFBStrength;
-								configAlternativeMaxForceRight = max(0, min(100, configAlternativeMaxForceRight));
+								configAlternativeMaxForceRight = std::max(0, std::min(100, configAlternativeMaxForceRight));
 							}
 							if (configAlternativeMaxForceLeft < 0 && configAlternativeMaxForceLeft >= -100)
 							{
 								configAlternativeMaxForceLeft += StepFFBStrength;
-								configAlternativeMaxForceLeft = max(-100, min(0, configAlternativeMaxForceLeft));
+								configAlternativeMaxForceLeft = std::max(-100, std::min(0, configAlternativeMaxForceLeft));
 							}
 						}
 						else
@@ -2156,7 +2161,7 @@ static int StrengthLoopWaitEvent()
 							if (configMaxForce > 0 && configMaxForce <= 100)
 							{
 								configMaxForce -= StepFFBStrength;
-								configMaxForce = max(0, min(100, configMaxForce));
+								configMaxForce = std::max(0, std::min(100, configMaxForce));
 							}
 						}
 						WritePersistentMaxForce();
@@ -2178,7 +2183,7 @@ static int StrengthLoopWaitEvent()
 								sprintf(FFBStrength1, "Max Force: %d", configMaxForce);
 
 							hr = ::CoInitialize(nullptr);
-							hr = cpVoice.CoCreateInstance(CLSID_SpVoice);
+							hr = cpVoice.CreateInstance(CLSID_SpVoice);
 							mbstowcs(FFBStrength2, FFBStrength1, strlen(FFBStrength1) + 1);
 							LPWSTR ptr = FFBStrength2;
 
@@ -2227,13 +2232,13 @@ static int StrengthLoopNoWaitEvent()
 						if (configAlternativeMaxForceRight >= 0 && configAlternativeMaxForceRight < 100)
 						{
 							configAlternativeMaxForceRight += StepFFBStrength;
-							configAlternativeMaxForceRight = max(0, min(100, configAlternativeMaxForceRight));
+							configAlternativeMaxForceRight = std::max(0, std::min(100, configAlternativeMaxForceRight));
 						}
 
 						if (configAlternativeMaxForceLeft <= 0 && configAlternativeMaxForceLeft > -100)
 						{
 							configAlternativeMaxForceLeft -= StepFFBStrength;
-							configAlternativeMaxForceLeft = max(-100, min(0, configAlternativeMaxForceLeft));
+							configAlternativeMaxForceLeft = std::max(-100, std::min(0, configAlternativeMaxForceLeft));
 						}
 					}
 					else
@@ -2241,7 +2246,7 @@ static int StrengthLoopNoWaitEvent()
 						if (configMaxForce >= 0 && configMaxForce < 100)
 						{
 							configMaxForce += StepFFBStrength;
-							configMaxForce = max(0, min(100, configMaxForce));
+							configMaxForce = std::max(0, std::min(100, configMaxForce));
 						}
 					}
 					WritePersistentMaxForce();
@@ -2254,12 +2259,12 @@ static int StrengthLoopNoWaitEvent()
 						if (configAlternativeMaxForceRight > 0 && configAlternativeMaxForceRight <= 100)
 						{
 							configAlternativeMaxForceRight -= StepFFBStrength;
-							configAlternativeMaxForceRight = max(0, min(100, configAlternativeMaxForceRight));
+							configAlternativeMaxForceRight = std::max(0, std::min(100, configAlternativeMaxForceRight));
 						}
 						if (configAlternativeMaxForceLeft < 0 && configAlternativeMaxForceLeft >= -100)
 						{
 							configAlternativeMaxForceLeft += StepFFBStrength;
-							configAlternativeMaxForceLeft = max(-100, min(0, configAlternativeMaxForceLeft));
+							configAlternativeMaxForceLeft = std::max(-100, std::min(0, configAlternativeMaxForceLeft));
 						}
 					}
 					else
@@ -2267,7 +2272,7 @@ static int StrengthLoopNoWaitEvent()
 						if (configMaxForce > 0 && configMaxForce <= 100)
 						{
 							configMaxForce -= StepFFBStrength;
-							configMaxForce = max(0, min(100, configMaxForce));
+							configMaxForce = std::max(0, std::min(100, configMaxForce));
 						}
 					}
 					WritePersistentMaxForce();
@@ -2289,7 +2294,7 @@ static int StrengthLoopNoWaitEvent()
 							sprintf(FFBStrength1, "Max Force: %d", configMaxForce);
 
 						hr = ::CoInitialize(nullptr);
-						hr = cpVoice.CoCreateInstance(CLSID_SpVoice);
+						hr = cpVoice.CreateInstance(CLSID_SpVoice);
 						mbstowcs(FFBStrength2, FFBStrength1, strlen(FFBStrength1) + 1);
 						LPWSTR ptr = FFBStrength2;
 

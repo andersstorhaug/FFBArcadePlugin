@@ -14,7 +14,7 @@ along with FFB Arcade Plugin.If not, see < https://www.gnu.org/licenses/>.
 #include <string>
 #include "HOTD4.h"
 #include "SDL.h"
-#include <Windows.h>
+#include <windows.h>
 static wchar_t* settingsFilename = TEXT(".\\FFBPlugin.ini");
 extern int joystick_index1;
 extern int joystick_index2;

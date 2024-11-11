@@ -12,9 +12,9 @@ along with FFB Arcade Plugin.If not, see < https://www.gnu.org/licenses/>.
 */
 
 #include <string>
-#include "Outrun2Real.h"
+#include "OutRun2Real.h"
 #include "SDL.h"
-#include <Windows.h>
+#include <windows.h>
 static EffectTriggers *myTriggers;
 static EffectConstants *myConstants;
 static Helpers *myHelpers;

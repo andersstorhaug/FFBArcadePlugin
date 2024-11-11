@@ -17,6 +17,7 @@ along with FFB Arcade Plugin.If not, see < https://www.gnu.org/licenses/>.
 #include "math.h"
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
 #include <windows.h>
 #include "SDL.h"
 #include "../Common Files/CRCCheck.h"
@@ -575,7 +576,7 @@ void Demul::FFBLoop(EffectConstants* constants, Helpers* helpers, EffectTriggers
 		{
 			//Remove window error popup
 			hWnd = FindWindowA(0, ("padDemul"));
-			if (hWnd > NULL)
+			if (hWnd != NULL)
 			{
 				CreateThread(NULL, 0, CloseErrorThread, NULL, 0, NULL);
 			}

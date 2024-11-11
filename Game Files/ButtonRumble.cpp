@@ -14,7 +14,7 @@ along with FFB Arcade Plugin.If not, see < https://www.gnu.org/licenses/>.
 #include <string>
 #include "ButtonRumble.h"
 #include "SDL.h"
-#include <Windows.h>
+#include <windows.h>
 static bool init = false;
 extern int joystick_index1;
 extern int joystick_index2;

@@ -14,7 +14,7 @@ along with FFB Arcade Plugin.If not, see < https://www.gnu.org/licenses/>.
 #include <string>
 #include "LGI3D.h"
 #include "SDL.h"
-#include <Windows.h>
+#include <windows.h>
 extern int joystick_index1;
 extern int joystick_index2;
 extern SDL_Haptic* haptic2;

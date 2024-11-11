@@ -12,6 +12,7 @@ along with FFB Arcade Plugin.If not, see < https://www.gnu.org/licenses/>.
 */
 
 #include <string>
+#include <stdint.h>
 #include "Machstorm.h"
 typedef unsigned char U8;
 typedef unsigned int U32;

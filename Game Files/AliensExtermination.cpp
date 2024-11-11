@@ -15,7 +15,7 @@ along with FFB Arcade Plugin.If not, see < https://www.gnu.org/licenses/>.
 #include "AliensExtermination.h"
 #include "SDL.h"
 #include <string>
-#include <Windows.h>
+#include <windows.h>
 extern int joystick_index1;
 extern int joystick_index2;
 extern SDL_Joystick* GameController2;
@@ -60,7 +60,7 @@ void AliensExtermination::FFBLoop(EffectConstants* constants, Helpers* helpers, 
 
 	if (GetAsyncKeyState((VK_ESCAPE)) && (EscapeKeyExitViaPlugin == 1))
 	{
-		if (hWnd > NULL)
+		if (hWnd != NULL)
 		{
 			ExitProcess(0);
 		}

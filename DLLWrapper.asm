@@ -1,6 +1,6 @@
 IFDEF RAX
 ELSE
-	.MODEL flat, C
+	.MODEL flat, STDCALL
 ENDIF
 
 WrapFunction MACRO functionName

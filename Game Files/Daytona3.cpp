@@ -30,7 +30,7 @@ void Daytona3::FFBLoop(EffectConstants *constants, Helpers *helpers, EffectTrigg
 
 	if (GetAsyncKeyState(VK_ESCAPE) && EscapeKeyExitViaPlugin)
 	{
-		if (hWnd > NULL)
+		if (hWnd != NULL)
 		{
 			system("taskkill /f /im InpWrapper.exe");
 			ExitProcess(0);

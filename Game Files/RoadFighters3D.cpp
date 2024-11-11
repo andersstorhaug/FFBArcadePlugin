@@ -12,9 +12,10 @@ along with FFB Arcade Plugin.If not, see < https://www.gnu.org/licenses/>.
 */
 
 #include <string>
+#include <stdint.h>
 #include "SDL.h"
 #include "RoadFighters3D.h"
-#include <Windows.h>
+#include <windows.h>
 static EffectTriggers *myTriggers;
 static EffectConstants *myConstants;
 static Helpers *myHelpers;
@@ -131,7 +132,7 @@ static int ThreadLoop()
 	{
 		//Remove fucken window error popup
 		HWND hWnd = FindWindowA(0, ("Libmovie Error Report"));
-		if (hWnd > NULL)
+		if (hWnd != NULL)
 		{
 			SendMessage(hWnd, WM_CLOSE, NULL, NULL);
 		}

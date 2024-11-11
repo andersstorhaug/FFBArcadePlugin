@@ -1,4 +1,4 @@
-#include <Windows.h>
+#include <windows.h>
 
 extern int configGameId;
 extern int configMinForce;
